@@ -16,7 +16,7 @@ for opt, arg in opts:
 if tty:
 	ser = serial.Serial(tty, 9600)
 	while 1 :
-		data = ser.readline()
+		data = ser.readline() # read moisture level and temperature
 		now = datetime.datetime.today()
 		nowString = now.strftime('%m/%d/%Y %H:%M:%S')
 		dataFile = open(dataFilePath, 'a')
