@@ -1,6 +1,10 @@
 #!/usr/bin/python
 
-import sys, getopt, datetime, serial
+import sys, getopt, datetime, serial;
+
+from Adafruit_IO import *
+
+aio = Client('xxxx')
 
 dataFilePath = 'data.csv'
 
@@ -20,8 +24,16 @@ if tty:
 		now = datetime.datetime.today()
 		nowString = now.strftime('%m/%d/%Y %H:%M:%S')
 		dataFile = open(dataFilePath, 'a')
-		dataFile.write(nowString + ', ' + str(data))
+		outputString = nowString + ', ' + str(data)
+		dataFile.write(outputString)
 		dataFile.close()
+		dateString, soil, temp, darkness = outputString.split(', ')
+		soil = int(soil)
+		temp = float(temp)
+		darkness = float(darkness.strip())
+		aio.send('Garden-Soil', soil)
+		aio.send('Garden-Temp', temp)
+		aio.send('Garden-Darkness', darkness)
 
 
 
