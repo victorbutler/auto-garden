@@ -17,4 +17,4 @@ Using a Soil Moisture sensor, take meaningful measurements of soil moisture cont
 3. Wire up the sensor using the +5v, GND and A0 pins on the board.
 
 ## Links ##
-* Schematic: https://circuits.io/circuits/3354330-auto-garden-v0-1
+* Schematic: https://circuits.io/circuits/3426362-auto-garden-v1-0
