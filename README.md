@@ -15,3 +15,6 @@ Using a Soil Moisture sensor, take meaningful measurements of soil moisture cont
 1. There is a [PiBakery](http://www.pibakery.org) recipe included that you can use to get your Raspberry Pi set up. Change the WiFi SSID and password to yours.
 2. Program the Arduino with the included Sketch (using the [Arduino software](https://www.arduino.cc/en/Main/Software)). It uses A0 as the ADC input for the sensor.
 3. Wire up the sensor using the +5v, GND and A0 pins on the board.
+
+## Links ##
+* https://circuits.io/circuits/3354330-auto-garden-v0-1
