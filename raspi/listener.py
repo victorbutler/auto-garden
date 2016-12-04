@@ -31,10 +31,11 @@ if tty:
 		soil = int(soil)
 		temp = float(temp)
 		darkness = float(darkness.strip())
-		aio.send('Garden-Soil', soil)
-		aio.send('Garden-Temp', temp)
-		aio.send('Garden-Darkness', darkness)
-
+		try:
+			aio.send('Garden-Soil', soil)
+			aio.send('Garden-Temp', temp)
+			aio.send('Garden-Darkness', darkness)
+		except AdafruitIOError:
 
 
 
