@@ -27,12 +27,14 @@ if tty:
 		outputString = nowString + ', ' + str(data)
 		dataFile.write(outputString)
 		dataFile.close()
-		dateString, soil, temp, darkness = outputString.split(', ')
-		soil = int(soil)
+		dateString, soil1, soil2, temp, darkness = outputString.split(', ')
+		soil1 = int(soil1)
+		soil2 = int(soil2)
 		temp = float(temp)
 		darkness = float(darkness.strip())
 		try:
-			aio.send('Garden-Soil', soil)
+			aio.send('Garden-Soil1', soil1)
+			aio.send('Garden-Soil2', soil2)
 			aio.send('Garden-Temp', temp)
 			aio.send('Garden-Darkness', darkness)
 		except:

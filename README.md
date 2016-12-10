@@ -5,6 +5,7 @@ Adventures in automating food growth
 Using a Soil Moisture sensor, take meaningful measurements of soil moisture content to determine when soil is *Too Dry* and needs *Watering*.
 
 ### Status ###
+**12/09/2016**: Light control added. Added another soil moisture sensor.
 **11/19/2016**: We can take measurements and track data over time.
 
 ## How? ##

@@ -1,5 +1,7 @@
-const int sensorPin = A0;
-const int soilPowerPin = 7;
+const int soil1Pin = A0;
+const int soil1PowerPin = 7;
+const int soil2Pin = A2;
+const int soil2PowerPin = 6;
 const int tempPin = A5;
 const int photoPin = A1;
 const int waterPin = 2;
@@ -17,11 +19,12 @@ volatile unsigned short timer1Counter = 0;
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(soilPowerPin, OUTPUT);
+  pinMode(soil1PowerPin, OUTPUT);
+  pinMode(soil2PowerPin, OUTPUT);
   pinMode(waterPin, OUTPUT);
   pinMode(lightPin, OUTPUT);
 
-  // initialize timer1 
+  // initialize timer1
   noInterrupts();           // disable all interrupts
   TCCR1A = 0;
   TCCR1B = 0;
@@ -34,7 +37,7 @@ void setup() {
   // So we will count up to 15 and trigger
   OCR1A = 0xF424;           // compare match register
   TCCR1B |= (1 << WGM12);   // CTC mode (clear timer on compare match)
-  TCCR1B |= (1 << CS10);    // 1024 prescaler 
+  TCCR1B |= (1 << CS10);    // 1024 prescaler
   TCCR1B |= (1 << CS12);
   TIMSK1 |= (1 << OCIE1A);  // enable timer compare interrupt
   interrupts();             // enable all interrupts
@@ -49,14 +52,19 @@ ISR(TIMER1_COMPA_vect) {
     int photoReading = analogRead(photoPin);
     float photoVoltage = photoReading * (VCC / 1023.0);
     float photoResistance = R_DIV * (VCC / photoVoltage - 1.0);
-    digitalWrite(soilPowerPin, HIGH);
-    int soilReading = analogRead(sensorPin);
-    digitalWrite(soilPowerPin, LOW);
+    digitalWrite(soil1PowerPin, HIGH);
+    digitalWrite(soil2PowerPin, HIGH);
+    int soil1Reading = analogRead(soil1Pin);
+    int soil2Reading = analogRead(soil2Pin);
+    digitalWrite(soil1PowerPin, LOW);
+    digitalWrite(soil2PowerPin, LOW);
     int tempReading = analogRead(tempPin);
     float voltage = (tempReading * 5.0) / 1024;
     float tempC = (voltage - 0.5) * 100;
     float tempF = ((tempC * 9.0) / 5.0) + 32;
-    Serial.print(soilReading);
+    Serial.print(soil1Reading);
+    Serial.print(", ");
+    Serial.print(soil2Reading);
     Serial.print(", ");
     Serial.print(tempF);
     Serial.print(", ");
