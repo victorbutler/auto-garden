@@ -3,6 +3,7 @@ const int soilPowerPin = 7;
 const int tempPin = A5;
 const int photoPin = A1;
 const int waterPin = 2;
+const int lightPin = 8;
 
 // Measure the voltage at 5V and the actual resistance of your
 // 47k resistor, and enter them below:
@@ -18,6 +19,7 @@ void setup() {
   // put your setup code here, to run once:
   pinMode(soilPowerPin, OUTPUT);
   pinMode(waterPin, OUTPUT);
+  pinMode(lightPin, OUTPUT);
 
   // initialize timer1 
   noInterrupts();           // disable all interrupts
@@ -62,6 +64,22 @@ ISR(TIMER1_COMPA_vect) {
   }
 }
 
+void serialCommand(char command[3]) {
+  if (strcmp(command, "W1") == 0) {
+      digitalWrite(waterPin, HIGH);
+      Serial.println("Water valve is open");
+    } else if (strcmp(command, "W0") == 0) {
+      digitalWrite(waterPin, LOW);
+      Serial.println("Water valve is closed");
+    } else if (strcmp(command, "L1") == 0) {
+      digitalWrite(lightPin, HIGH);
+      Serial.println("Light is on");
+    } else if (strcmp(command, "L0") == 0) {
+      digitalWrite(lightPin, LOW);
+      Serial.println("Light is off");
+    }
+}
+
 void loop() {
   char buffer1;
   // put your main code here, to run repeatedly:
@@ -75,11 +93,7 @@ void loop() {
     }
 
     if (controlChars == 0) {
-      if (strcmp(buff, "W1") == 0) {
-        digitalWrite(waterPin, HIGH);
-      } else {
-        digitalWrite(waterPin, LOW);
-      }
+      serialCommand(buff);
     }
   }
   delay(10);

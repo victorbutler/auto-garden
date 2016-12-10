@@ -35,7 +35,5 @@ if tty:
 			aio.send('Garden-Soil', soil)
 			aio.send('Garden-Temp', temp)
 			aio.send('Garden-Darkness', darkness)
-		except AdafruitIOError:
-
-
-
+		except:
+			continue
