@@ -59,9 +59,9 @@ ISR(TIMER1_COMPA_vect) {
     digitalWrite(soil1PowerPin, LOW);
     digitalWrite(soil2PowerPin, LOW);
     int tempReading = analogRead(tempPin);
-    float voltage = (tempReading * 5.0) / 1024;
+    float voltage = (tempReading * VCC) / 1023.0;
     float tempC = (voltage - 0.5) * 100;
-    float tempF = ((tempC * 9.0) / 5.0) + 32;
+    float tempF = ((tempC * 9.0) / VCC) + 32;
     Serial.print(soil1Reading);
     Serial.print(", ");
     Serial.print(soil2Reading);
@@ -75,16 +75,16 @@ ISR(TIMER1_COMPA_vect) {
 void serialCommand(char command[3]) {
   if (strcmp(command, "W1") == 0) {
       digitalWrite(waterPin, HIGH);
-      Serial.println("Water valve is open");
+      // Serial.println("Water valve is open");
     } else if (strcmp(command, "W0") == 0) {
       digitalWrite(waterPin, LOW);
-      Serial.println("Water valve is closed");
+      // Serial.println("Water valve is closed");
     } else if (strcmp(command, "L1") == 0) {
       digitalWrite(lightPin, HIGH);
-      Serial.println("Light is on");
+      // Serial.println("Light is on");
     } else if (strcmp(command, "L0") == 0) {
       digitalWrite(lightPin, LOW);
-      Serial.println("Light is off");
+      // Serial.println("Light is off");
     }
 }
 
@@ -95,6 +95,7 @@ void loop() {
     buffer1 = Serial.read();
     if (controlChars == 0 || controlChars == 1) {
       buff[controlChars] = buffer1;
+      // Serial.print(int(buffer1));
     }
     if (++controlChars == 2) {
       controlChars = 0;
