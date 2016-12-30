@@ -122,11 +122,11 @@ if tty:
 	def disconnected(client):
 		# Disconnected function will be called when the client disconnects.
 		print 'Disconnected from Adafruit IO!'
-		if (client.disconnect_reason != MQTT_ERR_SUCCESS):
-			print 'Client disconnected, reconnecting'
-			client.connect()
-		else:
-			sys.exit(1)
+		#if (client.disconnect_reason != MQTT_ERR_SUCCESS):
+		print 'Client disconnected, reconnecting'
+		client.connect()
+		#else:
+		#	sys.exit(1)
 
 	def message(client, feed_id, payload):
 		# Message function will be called when a subscribed feed has a new value.
