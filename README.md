@@ -1,5 +1,5 @@
 # Auto Garden #
-Adventures in automating food growth
+Adventures in automating food growth [Blog](http://electricsuds.com)
 
 ## Phase 1 ##
 Using a Soil Moisture sensor, take meaningful measurements of soil moisture content to determine when soil is *Too Dry* and needs *Watering*.
